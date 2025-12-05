@@ -1,0 +1,464 @@
+@use "_00_variables-and-mixins" as *;
+@use "_01_browser-reset" as *;
+@use "_001_libraries" as *;
+@use "_02_utility-classes" as *;
+@use "_03_typography" as *;
+@use "_04_components" as *;
+
+
+
+html, body {
+	width: 100%;
+}
+body {
+	background: #1F2A36 url(../img/bg/screen-bg.webp) no-repeat center center fixed;
+	background-size: cover;
+}
+
+// =================================================== Generic settings
+.screen-wrapper { height: 100%; min-height: 100vh; }
+.ui-wrapper {
+	background: #31446B;
+	width: 1218px;
+	height: 696px;
+	@include borderRadius(28px);
+}
+.content-section aside,
+.content-section .right {
+	padding: 32px;
+}
+.scroll-box {
+	max-height: 100%;
+	overflow: hidden; /* mCustomScrollbar will handle actual scrolling */
+	position: relative;
+}
+.text-box p:first-child, .scroll-box p:first-child {
+	margin-bottom: 10px;
+}
+.text-box h2, .scroll-box h2 {
+	margin-bottom: 38px;
+}
+
+.scroll-box.has-scroll::after {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	z-index: 10;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: #fff;
+	-webkit-box-shadow: 0 -5px 12px #FFDB52;
+	-moz-box-shadow: 0 -5px 12px #FFDB52;
+	-ms-box-shadow: 0 -5px 12px #FFDB52;
+	-o-box-shadow: 0 -5px 12px #FFDB52;
+	box-shadow: 0 -5px 12px #FFDB52;
+}
+
+
+// =================================================== Character Selection Screen
+.screen.character-select {
+	background: #232F3E;
+}
+.character-box {
+	cursor: pointer;
+	@include uiTransition(all 0.2s ease-in-out);
+}
+.character-box img,
+.character-box svg {
+	// display: none;
+	width: auto;
+	height: 100%;
+}
+.character-box {
+	height: 216px;
+}
+.character-box .bg-group {
+	@include uiTransition(all 0.24s ease-in-out);
+	-webkit-transform: translate(-200%, 0);
+	-moz-transform: translate(-200%, 0);
+	-ms-transform: translate(-200%, 0);
+	-o-transform: translate(-200%, 0);
+	transform: translate(-200%, 0);
+}
+.character-box:hover .bg-group {
+	-webkit-transform: translate(0, 0);
+	-moz-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	transform: translate(0, 0);
+}
+
+
+// =================================================== Reception Screen
+.reception .bg {
+	background: url(../img/bg/reception/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.reception .location-character {
+	left: 47%;
+	top: 54%;
+	height: 40%;
+}
+.reception .speech-bubble {
+	left: 80%;
+	top: -25%;
+}
+.reception .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 40%;
+	width: 18px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.reception .speech-bubble .text {
+	width: 200px;
+}
+.reception .work-floor-link {
+	right: 6%;
+	top: 10%;
+}
+.reception .work-floor-link .arrow {
+	-webkit-transform: translate(-50%, 0) rotate(-90deg);
+	-moz-transform: translate(-50%, 0) rotate(-90deg);
+	-ms-transform: translate(-50%, 0) rotate(-90deg);
+	-o-transform: translate(-50%, 0) rotate(-90deg);
+	transform: translate(-50%, 0) rotate(-90deg);
+}
+.reception .central-amenities-link {
+	left: 6%;
+	right: auto;
+	top: 20%;
+}
+
+
+// =================================================== Outdoor screens
+.location-character img.flip {
+	transform: scaleX(-1);
+}
+// ===================== theOutdoorCoffeeKiosk
+.theOutdoorCoffeeKiosk .bg {
+	background: url(../img/bg/outdoor/theOutdoorCoffeeKiosk/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theOutdoorCoffeeKiosk .location-character {
+	left: 46%;
+	top: 40%;
+	height: 55%;
+}
+.theOutdoorCoffeeKiosk .speech-bubble {
+	left: 80%;
+	top: -5%;
+}
+.theOutdoorCoffeeKiosk .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 40%;
+	width: 18px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theOutdoorCoffeeKiosk .speech-bubble .text {
+	width: 200px;
+}
+
+// ===================== theBasketballCourt
+.theBasketballCourt .bg {
+	background: url(../img/bg/outdoor/theBasketballCourt/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theBasketballCourt .location-character {
+	left: 30%;
+	top: 38%;
+	height: 52%;
+}
+.theBasketballCourt .speech-bubble {
+	left: -136%;
+	top: -38%;
+}
+.theBasketballCourt .speech-bubble .line {
+	position: absolute;
+	left: calc(100% + 10px);
+	top: 96%;
+	width: 16px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(32deg);
+	-moz-transform: translate(-90%, 0) rotate(32deg);
+	-ms-transform: translate(-90%, 0) rotate(32deg);
+	-o-transform: translate(-90%, 0) rotate(32deg);
+	transform: translate(-90%, 0) rotate(32deg);
+}
+.theBasketballCourt .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== theJoggingTrack
+.theJoggingTrack .bg {
+	background: url(../img/bg/outdoor/theJoggingTrack/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theJoggingTrack .location-character {
+	left: 46%;
+	top: 24%;
+	height: 60%;
+}
+.theJoggingTrack .speech-bubble {
+	left: 100%;
+	top: 10%;
+}
+.theJoggingTrack .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 53%;
+	width: 22px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theJoggingTrack .speech-bubble .text {
+	width: 200px;
+}
+
+
+
+// ===================== theAmphitheater
+.theAmphitheater .bg {
+	background: url(../img/bg/outdoor/theAmphitheater/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theAmphitheater .location-character {
+	left: 56%;
+	top: 43%;
+	height: 30%;
+}
+.theAmphitheater .speech-bubble {
+	left: 82%;
+	top: -30%;
+}
+.theAmphitheater .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 53%;
+	width: 16px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theAmphitheater .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== thePickleballCourt
+.thePickleballCourt .bg {
+	background: url(../img/bg/outdoor/thePickleballCourt/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.thePickleballCourt .location-character {
+	left: 56%;
+	top: 40%;
+	height: 29%;
+}
+.thePickleballCourt .speech-bubble {
+	left: 84%;
+	top: -44%;
+}
+.thePickleballCourt .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 53%;
+	width: 16px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.thePickleballCourt .speech-bubble .text {
+	width: 210px;
+}
+
+
+// ===================== theOutdoorTeaKiosk
+.theOutdoorTeaKiosk .bg {
+	background: url(../img/bg/outdoor/theOutdoorTeaKiosk/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theOutdoorTeaKiosk .location-character {
+	left: 4%;
+	top: 39%;
+	height: 58%;
+}
+.theOutdoorTeaKiosk .speech-bubble {
+	left: 66%;
+	top: -26%;
+}
+.theOutdoorTeaKiosk .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 53%;
+	width: 28px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theOutdoorTeaKiosk .speech-bubble .text {
+	width: 210px;
+}
+
+
+// ===================== groundFloorCafeteria
+.groundFloorCafeteria .bg {
+	background: url(../img/bg/central/groundFloorCafeteria/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.groundFloorCafeteria .location-character {
+	left: 47.5%;
+	top: 45%;
+	height: 48%;
+}
+.groundFloorCafeteria .speech-bubble {
+	left: 80%;
+	top: -35%;
+}
+.groundFloorCafeteria .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 80%;
+	width: 18px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.groundFloorCafeteria .speech-bubble .text {
+	width: 220px;
+}
+
+
+// ===================== firstFloorCareteria
+.firstFloorCareteria .bg {
+	background: url(../img/bg/central/firstFloorCareteria/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.firstFloorCareteria .location-character {
+	left: 44%;
+	top: 45%;
+	height: 53%;
+}
+.firstFloorCareteria .speech-bubble {
+	left: 80%;
+	top: -35%;
+}
+.firstFloorCareteria .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 80%;
+	width: 18px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.firstFloorCareteria .speech-bubble .text {
+	width: 220px;
+}
+
+
+// ===================== theTrainingRoom
+.theTrainingRoom .bg {
+	background: url(../img/bg/central/theTrainingRoom/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theTrainingRoom .location-character {
+	left: 44%;
+	top: 40%;
+	height: 58%;
+}
+.theTrainingRoom .speech-bubble {
+	left: 80%;
+	top: -35%;
+}
+.theTrainingRoom .speech-bubble .line {
+	position: absolute;
+	left: 0;
+	top: 80%;
+	width: 18px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theTrainingRoom .speech-bubble .text {
+	width: 240px;
+}
+
+
+// ===================== eventSpace
+.eventSpace .bg {
+	background: url(../img/bg/central/eventSpace/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.eventSpace .location-character {
+	left: 8%;
+	top: 47%;
+	height: 36%;
+}
+.eventSpace .speech-bubble {
+	left: -30%;
+	top: -76%;
+}
+.eventSpace .speech-bubble .line {
+	position: absolute;
+	left: 44%;
+	top: calc(100% + 2px);
+	width: 22px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.eventSpace .speech-bubble .text {
+	width: 200px;
+}

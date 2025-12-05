@@ -1,0 +1,33 @@
+{
+	"name": "game-design-trial",
+	"version": "1.0.0",
+	"description": "A gamified office-orientation experience created by Idealoft Studio for Gensler to onboard Amazon employees to their new workplace.",
+	"keywords": [
+		"Game",
+		"Gensler",
+		"Amazon"
+	],
+	"homepage": "https://github.com/idealoftcodecenter/gensler#readme",
+	"bugs": {
+		"url": "https://github.com/idealoftcodecenter/gensler/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/idealoftcodecenter/gensler.git"
+	},
+	"license": "ISC",
+	"author": "Idealoft Studio",
+	"type": "commonjs",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"watch": "sass -w scss/main.scss public_html/assets/css/main.css --style=compressed --embed-source-map",
+		"serve": "http-server ./public_html -i",
+		"start": "concurrently --kill-others \"npm run watch\" \"npm run serve\""
+	},
+	"devDependencies": {
+        "concurrently": "^9.1.2",
+        "http-server": "^14.1.1",
+        "sass": "^1.87.0"
+    }
+}
