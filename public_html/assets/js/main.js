@@ -1087,36 +1087,36 @@ $(function () {
 	}, 1200);
 
 
-	// function updateScreenWarning() {
-	// 	var w = $(window).width();
-	// 	var h = $(window).height();
-	// 	var $overlay = $('#screen-warning-overlay');
-	// 	var $text = $('.screen-warning-text');
+	function updateScreenWarning() {
+		var w = $(window).width();
+		var h = $(window).height();
+		var $overlay = $('#screen-warning-overlay');
+		var $text = $('.screen-warning-text');
 
-	// 	// Case 1: width < 1220 AND height < 1220
-	// 	if (w < 1220 && h < 1220) {
-	// 		$text.text('Please view this website on a desktop or laptop for the best experience.');
-	// 		$overlay.show();
-	// 		$('body').addClass('overlay-active');
-	// 	}
-	// 	// Case 2: width < 1220 AND height >= 1220
-	// 	else if (w < 1220 && h >= 1220) {
-	// 		$text.text('For the best experience, please rotate your device to landscape.');
-	// 		$overlay.show();
-	// 		$('body').addClass('overlay-active');
-	// 	}
-	// 	// Otherwise, hide the overlay
-	// 	else {
-	// 		$overlay.hide();
-	// 		$('body').removeClass('overlay-active');
-	// 	}
-	// }
+		// Case 1: width < 1220 AND height < 1220
+		if (w < 1220 && h < 1220) {
+			$text.text('Please view this website on a desktop or laptop for the best experience.');
+			$overlay.show();
+			$('body').addClass('overlay-active');
+		}
+		// Case 2: width < 1220 AND height >= 1220
+		else if (w < 1220 && h >= 1220) {
+			$text.text('For the best experience, please rotate your device to landscape.');
+			$overlay.show();
+			$('body').addClass('overlay-active');
+		}
+		// Otherwise, hide the overlay
+		else {
+			$overlay.hide();
+			$('body').removeClass('overlay-active');
+		}
+	}
 
-	// // Run on load
-	// updateScreenWarning();
+	// Run on load
+	updateScreenWarning();
 
-	// // Run on resize and orientation change
-	// $(window).on('resize orientationchange', function () {
-	// 	updateScreenWarning();
-	// });
+	// Run on resize and orientation change
+	$(window).on('resize orientationchange', function () {
+		updateScreenWarning();
+	});
 });
