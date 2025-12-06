@@ -234,11 +234,12 @@ $(function () {
 	// Map + scoreboard helpers
 	// ==================================================
 	function setScoreboardForMap(mapName) {
-		$centralScore.toggleClass("active", mapName === "centralGround");
-		$centralScore.toggleClass("active", mapName === "centralFirst");
+		// central scoreboard is shared by centralGround + centralFirst
+		$centralScore.toggleClass("active", mapName === "centralGround" || mapName === "centralFirst");
 		$outdoorScore.toggleClass("active", mapName === "outdoor");
 		$workScore.toggleClass("active", mapName === "work");
 	}
+
 
 	function setActiveMap(mapName) {
 		if (!mapName || state.maps.active === mapName) {
@@ -535,36 +536,60 @@ $(function () {
 		$root.find(selector).addClass("visited");
 	}
 
+	function getCentralVisitedCount() {
+		var centralMaps = ["centralGround", "centralFirst"];
+		var visitedKeys = new Set();
+
+		centralMaps.forEach(function (mapName) {
+			var mapData = state.maps.data[mapName];
+			var graph   = graphs[mapName];
+			if (!mapData || !graph) return;
+
+			Object.keys(mapData.visitedPlaces || {}).forEach(function (id) {
+				var node = graph[id];
+				// count only real scoring places (no staircase portals)
+				if (node && node.isPlace && !node.noScore) {
+					visitedKeys.add(mapName + ":" + id);
+				}
+			});
+		});
+
+		return visitedKeys.size;
+	}
+
+
 	function updateScoreboard(mapName) {
-		var mapData = state.maps.data[mapName];
-		if (!mapData) {
+		var visitedCount = 0;
+		var $cards = null;
+
+		// CENTRAL: combine ground + first floor
+		if (mapName === "centralGround" || mapName === "centralFirst") {
+			visitedCount = getCentralVisitedCount();
+			$cards = $centralScoreCards;
+		} else if (mapName === "outdoor") {
+			visitedCount = Object.keys(state.maps.data.outdoor.visitedPlaces || {}).length;
+			$cards = $outdoorScoreCards;
+		} else if (mapName === "work") {
+			visitedCount = Object.keys(state.maps.data.work.visitedPlaces || {}).length;
+			$cards = $workScoreCards;
+		} else {
 			return;
 		}
-
-		// number of unique visited place nodes on this map
-		var visitedCount = Object.keys(mapData.visitedPlaces).length;
-
-		var $cards = null;
-		if (mapName === "outdoor") $cards = $outdoorScoreCards;
-		if (mapName === "centralGround") $cards = $centralScoreCards;
-		if (mapName === "centralFirst") $cards = $centralScoreCards;
-		if (mapName === "work")    $cards = $workScoreCards;
 
 		if (!$cards || !$cards.length) {
 			return;
 		}
 
-		// DEBUG (so you can see it in console)
-		console.log("[scoreboard] updateScoreboard", mapName, "visitedCount =", visitedCount);
+		console.log("[scoreboard] updateScoreboard", mapName, "combined visitedCount =", visitedCount);
 
-		// simple rule: first N cards = visited
 		$cards.removeClass("active");
 		for (var i = 0; i < visitedCount && i < $cards.length; i++) {
 			$cards.eq(i).addClass("active");
 		}
 	}
 
-		// ----------------------------------------------------------------------
+
+	// ----------------------------------------------------------------------
 	// PORTAL HANDLER (staircases between maps)
 	// ----------------------------------------------------------------------
 	function handleMapPortal(fromMapName, nodeId) {
