@@ -7,7 +7,7 @@ $(function () {
 	var $scoreboard = $("#scoreboard");
 	var $scoreBoxes = $scoreboard.find(".score-box");
 	var $backButton = $("#back-btn");
-	var $locationCharacters = $(".location-character ");
+	var $locationCharacters = $(".location-character");
 	var $locationCharacterImages = $(".location-character-img");
 	var $mapLinks = $(".map-link");
 	var $arrowKeys = $(".arrow-key");

@@ -94,6 +94,7 @@ body {
 
 // =================================================== Reception Screen
 .reception .bg {
+	overflow: hidden;
 	background: url(../img/bg/reception/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -146,6 +147,7 @@ body {
 }
 // ===================== theOutdoorCoffeeKiosk
 .theOutdoorCoffeeKiosk .bg {
+	overflow: hidden;
 	background: url(../img/bg/outdoor/theOutdoorCoffeeKiosk/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -177,6 +179,7 @@ body {
 
 // ===================== theBasketballCourt
 .theBasketballCourt .bg {
+	overflow: hidden;
 	background: url(../img/bg/outdoor/theBasketballCourt/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -209,6 +212,7 @@ body {
 
 // ===================== theJoggingTrack
 .theJoggingTrack .bg {
+	overflow: hidden;
 	background: url(../img/bg/outdoor/theJoggingTrack/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -242,6 +246,7 @@ body {
 
 // ===================== theAmphitheater
 .theAmphitheater .bg {
+	overflow: hidden;
 	background: url(../img/bg/outdoor/theAmphitheater/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -274,6 +279,7 @@ body {
 
 // ===================== thePickleballCourt
 .thePickleballCourt .bg {
+	overflow: hidden;
 	background: url(../img/bg/outdoor/thePickleballCourt/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -306,6 +312,7 @@ body {
 
 // ===================== theOutdoorTeaKiosk
 .theOutdoorTeaKiosk .bg {
+	overflow: hidden;
 	background: url(../img/bg/outdoor/theOutdoorTeaKiosk/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -338,6 +345,7 @@ body {
 
 // ===================== groundFloorCafeteria
 .groundFloorCafeteria .bg {
+	overflow: hidden;
 	background: url(../img/bg/central/groundFloorCafeteria/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -370,6 +378,7 @@ body {
 
 // ===================== firstFloorCareteria
 .firstFloorCareteria .bg {
+	overflow: hidden;
 	background: url(../img/bg/central/firstFloorCareteria/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -402,6 +411,7 @@ body {
 
 // ===================== theTrainingRoom
 .theTrainingRoom .bg {
+	overflow: hidden;
 	background: url(../img/bg/central/theTrainingRoom/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -434,6 +444,7 @@ body {
 
 // ===================== eventSpace
 .eventSpace .bg {
+	overflow: hidden;
 	background: url(../img/bg/central/eventSpace/bg.webp) no-repeat center center;
 	background-size: auto 100%;
 }
@@ -462,3 +473,282 @@ body {
 .eventSpace .speech-bubble .text {
 	width: 200px;
 }
+
+
+// ===================== theKitchenette
+.theKitchenette .bg {
+	overflow: hidden;
+	background: url(../img/bg/work/theKitchenette/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theKitchenette .location-character {
+	left: 5%;
+	top: 47%;
+	height: 51%;
+}
+.theKitchenette .speech-bubble {
+	left: 58%;
+	top: -50%;
+}
+.theKitchenette .speech-bubble .line {
+	position: absolute;
+	left: 4%;
+	top: 100%;
+	width: 16px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theKitchenette .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== theAlternameWorkArea
+.theAlternameWorkArea .bg {
+	overflow: hidden;
+	background: url(../img/bg/work/theAlternameWorkArea/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theAlternameWorkArea .location-character {
+	left: 50%;
+	top: 49%;
+	height: 44%;
+}
+.theAlternameWorkArea .speech-bubble {
+	left: 67%;
+	top: -57%;
+}
+.theAlternameWorkArea .speech-bubble .line {
+	position: absolute;
+	left: 4%;
+	top: 100%;
+	width: 16px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theAlternameWorkArea .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== theMeetingRooms
+.theMeetingRooms .bg {
+	overflow: hidden;
+	background: url(../img/bg/work/theMeetingRooms/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theMeetingRooms .location-character {
+	left: 10%;
+	top: 40%;
+	height: 56%;
+}
+.theMeetingRooms .speech-bubble {
+	left: 54%;
+	top: -45%;
+}
+.theMeetingRooms .speech-bubble .line {
+	position: absolute;
+	left: 4%;
+	top: 100%;
+	width: 16px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theMeetingRooms .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== breakoutArea
+.breakoutArea .bg {
+	overflow: hidden;
+	background: url(../img/bg/work/breakoutArea/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.breakoutArea .location-character {
+	left: 10%;
+	top: 40%;
+	height: 56%;
+}
+.breakoutArea .speech-bubble {
+	left: 54%;
+	top: -45%;
+}
+.breakoutArea .speech-bubble .line {
+	position: absolute;
+	left: 4%;
+	top: 100%;
+	width: 16px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.breakoutArea .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== theFocusRooms
+.theFocusRooms .bg {
+	overflow: hidden;
+	background: url(../img/bg/work/theFocusRooms/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theFocusRooms .location-character {
+	left: -3%;
+	top: 52%;
+	height: 122%;
+}
+.theFocusRooms .speech-bubble {
+	left: 48%;
+	top: -22%;
+}
+.theFocusRooms .speech-bubble .line {
+	position: absolute;
+	left: 8%;
+	top: 100%;
+	width: 22px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theFocusRooms .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== huddle
+.huddle .bg {
+	overflow: hidden;
+	background: url(../img/bg/work/huddle/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.huddle .location-character {
+	left: 1%;
+	top: 42%;
+	height: 74%;
+}
+.huddle .speech-bubble {
+	left: 54%;
+	top: -32%;
+}
+.huddle .speech-bubble .line {
+	position: absolute;
+	left: 8%;
+	top: 100%;
+	width: 22px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.huddle .speech-bubble .text {
+	width: 200px;
+}
+
+
+// ===================== theSmallKitchenette
+.theSmallKitchenette .bg {
+	overflow: hidden;
+	background: url(../img/bg/work/theSmallKitchenette/bg.webp) no-repeat center center;
+	background-size: auto 100%;
+}
+.theSmallKitchenette .location-character {
+	left: 4%;
+	top: 42%;
+	height: 52%;
+}
+.theSmallKitchenette .speech-bubble {
+	left: 54%;
+	top: -42%;
+}
+.theSmallKitchenette .speech-bubble .line {
+	position: absolute;
+	left: 8%;
+	top: 100%;
+	width: 22px;
+	height: 4px;
+	background-color: #F5F5F5;
+	-webkit-transform: translate(-90%, 0) rotate(-32deg);
+	-moz-transform: translate(-90%, 0) rotate(-32deg);
+	-ms-transform: translate(-90%, 0) rotate(-32deg);
+	-o-transform: translate(-90%, 0) rotate(-32deg);
+	transform: translate(-90%, 0) rotate(-32deg);
+}
+.theSmallKitchenette .speech-bubble .text {
+	width: 200px;
+}
+
+
+
+/* Default state for place labels */
+.node.place .label {
+	opacity: 0;
+	transform: scale(1);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* When the player is one step away */
+.node.place.nearby-place .label {
+	opacity: 1;
+	transform: scale(1.05);
+}
+
+.edge.location-path {
+	stroke-dasharray: 4 4;
+	opacity: 0.5;
+	transition:
+		stroke 0.2s ease,
+		stroke-width 0.2s ease,
+		opacity 0.2s ease,
+		stroke-dasharray 0.2s ease;
+}
+
+.edge.location-path.visited {
+	stroke: #FFDB52;
+	stroke-width: 3;
+	stroke-dasharray: none;
+	opacity: 1;
+}
+/* Default: sparks hidden */
+.locations-layer .spark {
+	opacity: 0;
+	transform: scale(0.5);
+	transform-origin: center;
+	transition:
+		opacity 0.25s ease-out,
+		transform 0.25s ease-out;
+}
+
+/* After visiting a place (markVisitedPlace adds .visited-place) */
+.node.place.visited-place .spark {
+	opacity: 1;
+	transform: scale(1);
+}
+

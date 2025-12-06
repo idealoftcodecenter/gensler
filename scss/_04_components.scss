@@ -202,21 +202,42 @@ button:hover .arrow .line,
 	border: 2px solid #FFF7CC;
 	@include borderRadius(4px);
 	background: #B1A3EE;
-	opacity: .5;
+	opacity: 0.2;
+	transition: opacity 0.2s ease, transform 0.15s ease;
+
 }
-.key.up img {
+.key-up img {
 	transform: rotate(180deg);
 }
-.key.left img {
+.key-left img {
 	transform: rotate(90deg);
 }
-.key.key-right img {
+.key-right img {
 	transform: rotate(-90deg);
 }
-.key.active {
+
+
+/* This direction is reachable from current node */
+.key.available {
 	opacity: 1;
 }
 
+/* Not reachable from current node */
+.key.disabled {
+	opacity: 0.15;
+	pointer-events: none;
+}
+
+/* Pressed by keyboard or mouse */
+.key.pressed {
+	transform: scale(0.9);
+	opacity: 1;
+}
+
+/* OPTIONAL: manual "active" state */
+.key.active {
+	opacity: 1;
+}
 
 .north-marker {
 	position: absolute;
@@ -243,11 +264,46 @@ button:hover .arrow .line,
 .location-character > img.active {
 	display: block;
 }
+.locations-layer .label {
+	@include uiTransition(all .24s ease-in-out);
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	transform: scale(0);
+	-webkit-transform-origin: center top;
+	-moz-transform-origin: center top;
+	transform-origin: center top;
+	opacity: 0;
+}
+.locations-layer .location-marker:hover .label {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+}
 
 
 .speech-bubble {
 	position: absolute;
 }
+.speech-bubble {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+
+	-webkit-transform: translate3d(0, 16px, 0) scale(0.85);
+	-moz-transform: translate3d(0, 16px, 0) scale(0.85);
+	-ms-transform: translate3d(0, 16px, 0) scale(0.85);
+	-o-transform: translate3d(0, 16px, 0) scale(0.85);
+	transform: translate3d(0, 16px, 0) scale(0.85);
+}
+/* Replace .screen.active with your actual "visible screen" selector */
+.screen.active .speech-bubble {
+	-webkit-animation: speechBubbleIn 0.5s ease-in-out .5s forwards;
+	-moz-animation: speechBubbleIn 0.5s ease-in-out .5s forwards;
+	-o-animation: speechBubbleIn 0.5s ease-in-out .5s forwards;
+	animation: speechBubbleIn 0.5s ease-in-out .5s forwards;
+}
+
 .speech-bubble  .line {
 	position: absolute;
 }
@@ -265,7 +321,8 @@ button:hover .arrow .line,
 
 
 // ===================================================> Links inside map
-.exit-to-map {
+.exit-to-map,
+.map-links {
 	height: 44px;
 	width: auto;
 	background: #FFF7CC;
@@ -281,7 +338,8 @@ button:hover .arrow .line,
 	color: #31446B;
 	@include uiTransition(all .24s ease-in-out);
 }
-.exit-to-map:hover {
+.exit-to-map:hover,
+.map-links:hover {
 	background: #31446B;
 	border-color: #FFDB52;
 	color: #FFDB52;
@@ -292,28 +350,34 @@ button:hover .arrow .line,
 	-o-transform: scale(1.05);
 	transform: scale(1.05);
 }
-.exit-to-map .arrow.blue .line {
+.exit-to-map .arrow.blue .line, 
+.map-links .arrow.blue .line {
 	background-color: #31446B;
 }
-.exit-to-map .arrow.blue .line::after {
+.exit-to-map .arrow.blue .line::after, 
+.map-links .arrow.blue .line::after {
 	border-top-color: #31446B;
 	border-right-color: #31446B;
 }
-.exit-to-map:hover .arrow .line {
+.exit-to-map:hover .arrow .line, 
+.map-links:hover .arrow .line {
 	background-color: #FFDB52;
 }
-.exit-to-map:hover .arrow .line::after {
+.exit-to-map:hover .arrow .line::after, 
+.map-links:hover .arrow .line::after {
 	border-top-color: #FFDB52;
 	border-right-color: #FFDB52;
 }
 
-.exit-to-map .pipe {
+.exit-to-map .pipe, 
+.map-links .pipe {
 	display: block;
 	height: 100%;
 	width: 2px;
 	background: #B1A3EE;
 }
-.exit-to-map .icon {
+.exit-to-map .icon, 
+.map-links .icon {
 	width: 56px;
 	height: 56px;
 	background: #DDEFFE;
@@ -321,6 +385,7 @@ button:hover .arrow .line,
 	@include borderRadius(28px);
 	margin-right: -5px;
 }
+.first-floor-amenities, 
 .first-floor-amenities {
 	left: 5%;
 	top: 20%;
@@ -349,9 +414,21 @@ button:hover .arrow .line,
 	-o-transform: translate(0, 0);
 	transform: translate(0, 0);
 }
-.scoreboard .score-box {
-	fill: #D5F0D8;
+.score-box rect {
+    fill: #D5F0D8 !important;
+    transition: all 0.2s ease;
 }
-.scoreboard .score-box.active {
-	fill: #B062E0;
+
+.score-box.active rect {
+    fill: #B062E0 !important;
+}
+
+
+.location-marker:hover .label { opacity: 1; }
+
+.player-character {
+	display: none;
+}
+.player-character.active {
+	display: block;
 }

@@ -3,14 +3,14 @@ $(function () {
 	// ==================================================
 	// All important elements and variables
 	// ==================================================
-	var $characterSelectionScreen = $("#character-selection-screen");
+	var $characterSelectionScreen = $("#character-screen");
 	var $characters = $("#character-selection-box .character-box");
 	var $receptionScreen = $("#reception-screen");
 	var $gameScreen = $("#game-screen"); // wrapper for game view
 	var $scoreboard = $("#scoreboard");
 	var $scoreBoxes = $scoreboard.find(".score-box");
 	var $backButton = $("#back-btn");
-	var $locationCharacters = $(".location-character ");
+	var $locationCharacters = $(".location-character");
 	var $locationCharacterImages = $(".location-character-img");
 	var $mapLinks = $(".map-link");
 
@@ -32,6 +32,18 @@ $(function () {
 	// player elements (for currently active map)
 	var $player = null;
 	var $playerRing = null;
+
+	// Map of work-map locations to popup screen IDs
+	const workMapScreens = {
+		locKitchenette: "theKitchenette",
+		locAltWork: "theAlternameWorkArea",
+		locMeetRoom: "theMeetingRooms",
+		locBreakout: "breakoutArea",
+		locFocus: "theFocusRooms",
+		locHuddle: "huddle",
+		locSmallKitchenette: "theSmallKitchenette",
+	};
+
 
 	// scorecards lookup per map
 	var scoreCardsByMap = {
@@ -171,17 +183,36 @@ $(function () {
 	// Screen helpers
 	// ==================================================
 	function setActiveScreen(screenName) {
-		if (state.screens.active === screenName) {
-			return;
-		}
+		if (state.screens.active === screenName) return;
 
+		// Hide previous screen
 		if (state.screens.active) {
 			$("#" + state.screens.active + "-screen").removeClass("active");
 		}
 
+		// Show new screen
 		$("#" + screenName + "-screen").addClass("active");
 		state.screens.active = screenName;
+
+		updateBackButtonLabel();
 	}
+	function updateBackButtonLabel() {
+		const $label = $backButton.find(".text");
+
+		if (state.screens.active === "game") {
+			$label.text("Back to Reception");
+			$backButton.addClass("active");
+
+		} else if (state.screens.active === "reception") {
+			$label.text("Back to Character Selection");
+			$backButton.addClass("active");
+
+		} else {
+			// On character screen or loading → hide back button
+			$backButton.removeClass("active");
+		}
+	}
+
 
 	// ==================================================
 	// Map + scoreboard helpers
@@ -278,8 +309,8 @@ $(function () {
 				}
 
 				var isPlace = $node.hasClass("place");
-				var cx = parseFloat($node.attr("cx"));
-				var cy = parseFloat($node.attr("cy"));
+				var cx = parseFloat($node.attr("cx")) || parseFloat($node.data("x"));
+				var cy = parseFloat($node.attr("cy")) || parseFloat($node.data("y"));
 
 				graph[id] = {
 					id: id,
@@ -313,20 +344,20 @@ $(function () {
 	// ==================================================
 
 	function attemptMove(dir) {
-	var activeMap = state.maps.active;
-	if (!activeMap) return;
+		var activeMap = state.maps.active;
+		if (!activeMap) return;
 
-	var graph = graphs[activeMap];
-	var mapData = state.maps.data[activeMap];
+		var graph = graphs[activeMap];
+		var mapData = state.maps.data[activeMap];
 
-	if (!graph || !mapData || !mapData.currentNodeId) return;
+		if (!graph || !mapData || !mapData.currentNodeId) return;
 
-	var currentNode = graph[mapData.currentNodeId];
-	var nextNodeId = currentNode.neighbors[dir];
+		var currentNode = graph[mapData.currentNodeId];
+		var nextNodeId = currentNode.neighbors[dir];
 
-	if (!nextNodeId) return;
+		if (!nextNodeId) return;
 
-	moveToNode(activeMap, nextNodeId, dir);
+		moveToNode(activeMap, nextNodeId, dir);
 	}
 
 	function moveToNode(mapName, nextNodeId, dir) {
@@ -355,6 +386,7 @@ $(function () {
 
 		if (state.maps.active === mapName) {
 			updateAvailableDirections();
+			updateNearbyPlaces(mapName);
 		}
 	}
 
@@ -424,12 +456,38 @@ $(function () {
 		$root.find(selector).addClass("visited");
 	}
 
+	function updateScoreboard(mapName) {
+		var mapData = state.maps.data[mapName];
+		if (!mapData) {
+			return;
+		}
+
+		// number of unique visited place nodes on this map
+		var visitedCount = Object.keys(mapData.visitedPlaces).length;
+
+		var $cards = null;
+		if (mapName === "outdoor") $cards = $outdoorScoreCards;
+		if (mapName === "central") $cards = $centralScoreCards;
+		if (mapName === "work")    $cards = $workScoreCards;
+
+		if (!$cards || !$cards.length) {
+			return;
+		}
+
+		// DEBUG (so you can see it in console)
+		console.log("[scoreboard] updateScoreboard", mapName, "visitedCount =", visitedCount);
+
+		// simple rule: first N cards = visited
+		$cards.removeClass("active");
+		for (var i = 0; i < visitedCount && i < $cards.length; i++) {
+			$cards.eq(i).addClass("active");
+		}
+	}
 	// ==================================================
 	// Place (Location) handling
 	// ==================================================
-
 	function markVisitedPlace(mapName, nodeId) {
-		var graph = graphs[mapName];
+		var graph   = graphs[mapName];
 		var mapData = state.maps.data[mapName];
 		if (!graph || !mapData) return;
 
@@ -437,22 +495,155 @@ $(function () {
 			mapData.visitedPlaces[nodeId] = true;
 
 			var node = graph[nodeId];
-			if (node.isPlace) {
+			if (node && node.isPlace) {
 				node.$el.addClass("visited-place");
 
-				// Scoreboard
 				var regionId = node.$el.data("region") || nodeId;
 				markRegionVisited(mapName, regionId);
 
-				// Show screen
+				console.log("[game] visited place node:", nodeId, "map:", mapName, "region:", regionId);
+
 				var screen = node.$el.data("screen-target");
 				if (screen) {
 					$(".location-screen").removeClass("active");
 					$(screen).addClass("active");
 				}
 			}
+
+			// Update UI counts
+			updateScoreboard(mapName);
+
+			// 🔔 Check if this map is now 100% explored
+			checkMapCompletion(mapName);
 		}
 	}
+
+	// ==================================================
+	// Exit from location screen back to its map,
+	// and move player back to the nearest joint node
+	// ==================================================
+	$(".exit-to-map").on("click", function (evt) {
+		evt.preventDefault();
+
+		// 1) Which screen are we closing?
+		var $screen  = $(this).closest(".location-screen");
+		var screenId = $screen.attr("id");
+
+		// 2) Which map does it belong to?
+		var mapName = $screen.data("map") || state.maps.active;
+
+		// Hide all location screens
+		$(".location-screen").removeClass("active");
+
+		if (!mapName) {
+			setActiveScreen("game");
+			return;
+		}
+
+		var graph   = graphs[mapName];
+		var mapData = state.maps.data[mapName];
+
+		if (graph && mapData) {
+			// 3) Find the place node whose data-screen-target matches this screen
+			var placeNodeId = null;
+
+			$.each(graph, function (id, node) {
+				if (
+					node.isPlace &&
+					node.$el.data("screen-target") === "#" + screenId
+				) {
+					placeNodeId = id;
+					return false; // break $.each
+				}
+			});
+
+			if (placeNodeId) {
+				var placeNode = graph[placeNodeId];
+				var jointId   = null;
+
+				// 4) Find a neighbor that is NOT a place (i.e. a regular joint node)
+				Object.keys(placeNode.neighbors).some(function (dir) {
+					var neighborId   = placeNode.neighbors[dir];
+					var neighborNode = graph[neighborId];
+
+					if (neighborNode && !neighborNode.isPlace) {
+						jointId = neighborId;
+						return true; // break .some
+					}
+					return false;
+				});
+
+				if (jointId) {
+					// Update state to this joint
+					mapData.currentNodeId = jointId;
+					markVisitedNode(mapName, jointId);
+
+					// If this map is already active, move player immediately
+					if (state.maps.active === mapName) {
+						positionPlayerAt(mapName, jointId, false);
+					}
+				}
+			}
+		}
+
+		// 5) Ensure map view is active (also repositions player using currentNodeId)
+		setActiveMap(mapName);
+	});
+
+	// ----------------------------------------------------------------------
+	// GLOBAL: map completion tracking + confetti trigger
+	// ----------------------------------------------------------------------
+
+	// Track which maps already fired confetti to avoid duplicates
+	state.mapCompletionFired = state.mapCompletionFired || {};
+
+	function checkMapCompletion(mapName) {
+		if (!mapName || !graphs[mapName]) return;
+
+		var graph   = graphs[mapName];
+		var mapData = state.maps.data[mapName];
+		if (!mapData) return;
+
+		// 1) List all PLACE nodes in this map (locA, locB, locMeeting, etc.)
+		var allPlaces = Object.keys(graph).filter(function (id) {
+			return graph[id].isPlace; // set in initGraphsFromSvg
+		});
+
+		// 2) Get visited place IDs from your state (markVisitedPlace fills this)
+		var visitedPlacesObj = mapData.visitedPlaces || {};
+		var visitedPlaceIds  = Object.keys(visitedPlacesObj);
+
+		// 3) If we have at least 1 place, and all of them are visited
+		if (allPlaces.length > 0 && visitedPlaceIds.length === allPlaces.length) {
+
+			// 4) Only fire once per map
+			if (!state.mapCompletionFired[mapName]) {
+				state.mapCompletionFired[mapName] = true;
+				runConfettiCelebration(mapName);
+			}
+		}
+	}
+
+	// Confetti wrapper so we can tweak later if needed
+	function runConfettiCelebration(mapName) {
+		console.log("🎉 All places visited in map:", mapName);
+
+		// Your existing confetti settings:
+		confetti({
+			particleCount: 120,
+			angle: 60,
+			spread: 100,
+			origin: { x: 0 }
+		});
+
+		confetti({
+			particleCount: 120,
+			angle: 120,
+			spread: 100,
+			origin: { x: 1 }
+		});
+	}
+
 
 	// ==================================================
 	function edgeKey(a, b) {
@@ -490,17 +681,13 @@ $(function () {
 		state.activeCharacter = clickedIndex;
 
 		// show reception screen
-		$characterSelectionScreen.removeClass("active");
 		setActiveScreen("reception");
 
 		// timer + UI
 		startTimer();
 		$scoreboard.addClass("active");
-		$backButton.addClass("active");
 
-		$locationCharacters
-			.find(".character-" + state.activeCharacter)
-			.addClass("active");
+		$locationCharacters.find(".character-" + state.activeCharacter).addClass("active");
 	}
 
 	function deSelectCharacter() {
@@ -511,7 +698,6 @@ $(function () {
 
 		$scoreBoxes.removeClass("active");
 		$scoreboard.removeClass("active");
-		$backButton.removeClass("active");
 		$locationCharacterImages.removeClass("active");
 
 		$mapScreens.removeClass("active");
@@ -527,7 +713,17 @@ $(function () {
 	// ==================================================
 	function handleBackButtonClick(evt) {
 		evt.preventDefault();
-		if (state.screens.active === "reception" || state.screens.active === "game") {
+
+		if (state.screens.active === "game") {
+			// GAME → RECEPTION
+			$mapScreens.removeClass("active");
+			state.maps.active = null;
+			updateAvailableDirections();
+
+			setActiveScreen("reception");
+
+		} else if (state.screens.active === "reception") {
+			// RECEPTION → CHARACTER SELECTION
 			deSelectCharacter();
 		}
 	}
@@ -548,7 +744,6 @@ $(function () {
 		}
 
 		setActiveMap(mapName);
-		console.log(state.screens);
 	}
 
 	$mapLinks.on("click", function (evt) {
@@ -582,6 +777,38 @@ $(function () {
 		attemptMove(dir);
 	});
 
+
+	function updateNearbyPlaces(mapName) {
+		if (!mapName) {
+			mapName = state.maps.active;
+		}
+		if (!mapName) return;
+
+		var graph = graphs[mapName];
+		var mapData = state.maps.data[mapName];
+		if (!graph || !mapData || !mapData.currentNodeId) return;
+
+		// 1) Clear previous nearby flags on this map
+		$.each(graph, function (id, node) {
+			if (node.isPlace) {
+				node.$el.removeClass("nearby-place");
+			}
+		});
+
+		var currentNode = graph[mapData.currentNodeId];
+		if (!currentNode) return;
+
+		// 2) For each neighbor of current node:
+		//    if the neighbor is a place → mark it as nearby
+		$.each(currentNode.neighbors, function (dir, neighborId) {
+			var neighborNode = graph[neighborId];
+			if (neighborNode && neighborNode.isPlace) {
+				neighborNode.$el.addClass("nearby-place");
+			}
+		});
+	}
+
+
 	// ==================================================
 	// Initialisation
 	// ==================================================
@@ -589,7 +816,6 @@ $(function () {
 
 	setTimeout(function () {
 		$("#state-loading-website").addClass("screen-out");
-		$characterSelectionScreen.addClass("active");
-		state.screens.active = "character";
-	}, 2000);
+		setActiveScreen("character");
+	}, 200);
 });
