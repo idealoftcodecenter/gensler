@@ -25,9 +25,15 @@ $(function () {
 
 	// each map wrapper (assumed IDs: #central-map, #outdoor-map, #work-map)
 	var $centralGroundMap = $("#centralGround-map");
-	var $outdoorMap = $("#outdoor-map");
-	var $workMap = $("#work-map");
-	var $mapScreens = $centralGroundMap.add($outdoorMap).add($workMap);
+	var $centralFirstMap  = $("#centralFirst-map");   // 🔴 add this
+	var $outdoorMap       = $("#outdoor-map");
+	var $workMap          = $("#work-map");
+
+	var $mapScreens = $centralGroundMap
+		.add($centralFirstMap)   // 🔴 include it
+		.add($outdoorMap)
+		.add($workMap);
+
 
 	// player elements (for currently active map)
 	var $player = null;
@@ -568,42 +574,55 @@ $(function () {
 		var node = graph[nodeId];
 		if (!node || !node.isPlace) return;
 
-		var $el      = node.$el;
-		var noScore  = $el.data("no-score") === true || $el.data("no-score") === "true";
-		var screen   = $el.data("screen-target");
+		var $el       = node.$el;
+		var noScore   = !!node.noScore;              // from initGraphsFromSvg
+		var screenSel = $el.data("screen-target");
+		var targetMap = $el.data("target-map");      // 🔴 portal map name (e.g. "centralFirst")
 
-		// 🔹 Transition-only place (like Staircase)
-		if (noScore) {
-			if (screen) {
+		// 1) PORTAL behaviour (staircase etc.)
+		if (targetMap) {
+			// If you want a popup first, you can uncomment the next block:
+			/*
+			if (screenSel) {
 				$(".location-screen").removeClass("active");
-				$(screen).addClass("active");
+				$(screenSel).addClass("active");
 				refreshBackButtonVisibility();
 			}
-			// Do NOT:
-			// - store in visitedPlaces
-			// - markRegionVisited
-			// - updateScoreboard
-			// - checkMapCompletion / confetti
+			*/
+
+			// jump directly to the target map
+			setActiveMap(targetMap);
 			return;
 		}
 
-		// 🔹 Normal scoring place (like Ground Floor Cafeteria)
+		// 2) Normal places: open screen if any
+		if (screenSel) {
+			$(".location-screen").removeClass("active");
+			$(screenSel).addClass("active");
+			refreshBackButtonVisibility();
+		}
+
+		// 3) Places that should NOT affect score/confetti
+		if (noScore) {
+			return;
+		}
+
+		// 4) Normal scoring + completion logic
 		if (!mapData.visitedPlaces[nodeId]) {
 			mapData.visitedPlaces[nodeId] = true;
-
 			$el.addClass("visited-place");
 
 			var regionId = $el.data("region") || nodeId;
 			markRegionVisited(mapName, regionId);
 
-			if (screen) {
-				$(".location-screen").removeClass("active");
-				$(screen).addClass("active");
-				refreshBackButtonVisibility();
-			}
-
 			updateScoreboard(mapName);
-			checkMapCompletion(mapName);
+
+			// centralGround + centralFirst share completion
+			if (mapName === "centralGround" || mapName === "centralFirst") {
+				checkCentralCompletion();
+			} else {
+				checkMapCompletion(mapName);
+			}
 		}
 	}
 
@@ -689,31 +708,72 @@ $(function () {
 	// Track which maps already fired confetti to avoid duplicates
 	state.mapCompletionFired = state.mapCompletionFired || {};
 
+	// ----------------------------------------------------------------------
+	// GLOBAL: map completion tracking + confetti trigger
+	// ----------------------------------------------------------------------
+
+	// Track which maps already fired confetti to avoid duplicates
+	state.mapCompletionFired = state.mapCompletionFired || {};
+
+	// NEW: combined completion for centralGround + centralFirst
+	function checkCentralCompletion() {
+		var centralMaps = ["centralGround", "centralFirst"];
+
+		var allPlaceKeys = [];
+		var visitedKeys = new Set();
+
+		centralMaps.forEach(function (mapName) {
+			var graph = graphs[mapName];
+			var mapData = state.maps.data[mapName];
+			if (!graph || !mapData) return;
+
+			// all places that DO count (no noScore)
+			Object.keys(graph).forEach(function (id) {
+				var node = graph[id];
+				if (node && node.isPlace && !node.noScore) {
+					allPlaceKeys.push(mapName + ":" + id);
+				}
+			});
+
+			// visited places on this map
+			Object.keys(mapData.visitedPlaces || {}).forEach(function (id) {
+				visitedKeys.add(mapName + ":" + id);
+			});
+		});
+
+		if (allPlaceKeys.length > 0 && visitedKeys.size === allPlaceKeys.length) {
+			if (!state.mapCompletionFired.centralCombined) {
+				state.mapCompletionFired.centralCombined = true;
+				// label "central" here is just for the log
+				runConfettiCelebration("central");
+			}
+		}
+	}
+
+	// Existing, but now used for outdoor/work only
 	function checkMapCompletion(mapName) {
 		if (!mapName || !graphs[mapName]) return;
+
+		// Central maps use combined logic instead
+		if (mapName === "centralGround" || mapName === "centralFirst") {
+			checkCentralCompletion();
+			return;
+		}
 
 		var graph   = graphs[mapName];
 		var mapData = state.maps.data[mapName];
 		if (!mapData) return;
 
-		// 1) List all PLACE nodes in this map (locA, locB, locMeeting, etc.)
+		// Only places that count (no staircase, etc.)
 		var allPlaces = Object.keys(graph).filter(function (id) {
 			var node = graph[id];
-			if (!node || !node.isPlace) return false;
-			var $el = node.$el;
-			var noScore = $el.data("no-score") === true || $el.data("no-score") === "true";
-			return !noScore; // only real scoring places
+			return node && node.isPlace && !node.noScore;
 		});
 
-
-		// 2) Get visited place IDs from your state (markVisitedPlace fills this)
 		var visitedPlacesObj = mapData.visitedPlaces || {};
 		var visitedPlaceIds  = Object.keys(visitedPlacesObj);
 
-		// 3) If we have at least 1 place, and all of them are visited
 		if (allPlaces.length > 0 && visitedPlaceIds.length === allPlaces.length) {
-
-			// 4) Only fire once per map
 			if (!state.mapCompletionFired[mapName]) {
 				state.mapCompletionFired[mapName] = true;
 				runConfettiCelebration(mapName);
