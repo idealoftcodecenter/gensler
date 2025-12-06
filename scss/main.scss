@@ -189,7 +189,8 @@ body {
 	height: 52%;
 }
 .theBasketballCourt .speech-bubble {
-	left: -136%;
+	left: auto;
+	right: 90%;
 	top: -38%;
 }
 .theBasketballCourt .speech-bubble .line {
@@ -453,6 +454,11 @@ body {
 	top: 47%;
 	height: 36%;
 }
+.eventSpace .location-character.char-2 {
+	left: 4%;
+	top: 27%;
+	height: 46%;
+}
 .eventSpace .speech-bubble {
 	left: -30%;
 	top: -76%;
@@ -519,6 +525,12 @@ body {
 	top: 49%;
 	height: 44%;
 }
+.theAlternameWorkArea .location-character.char-2 {
+	left: 40%;
+	top: 3%;
+	height: 86%;
+	width: auto;
+}
 .theAlternameWorkArea .speech-bubble {
 	left: 67%;
 	top: -57%;
@@ -551,6 +563,11 @@ body {
 	left: 10%;
 	top: 40%;
 	height: 56%;
+}
+.theMeetingRooms .location-character.char-2 {
+	left: 10%;
+	top: 46%;
+	height: 50%;
 }
 .theMeetingRooms .speech-bubble {
 	left: 54%;
@@ -618,6 +635,14 @@ body {
 	top: 52%;
 	height: 122%;
 }
+.theFocusRooms .location-character.char-2 {
+	left: -3%;
+	top: 38%;
+	height: 122%;
+}
+.theFocusRooms .location-character.char-2 .speech-bubble {
+	top: -10%;
+}
 .theFocusRooms .speech-bubble {
 	left: 48%;
 	top: -22%;
@@ -683,6 +708,11 @@ body {
 	left: 4%;
 	top: 42%;
 	height: 52%;
+}
+.theSmallKitchenette .location-character.char-2 {
+	left: 4%;
+	top: 42%;
+	height: 48%;
 }
 .theSmallKitchenette .speech-bubble {
 	left: 54%;
@@ -750,5 +780,22 @@ body {
 .node.place.visited-place .spark {
 	opacity: 1;
 	transform: scale(1);
+}
+
+
+/* OUTDOOR: default state – show unvisited, hide visited */
+.map-svg .area-group .area-unvisited {
+	display: block;
+}
+.map-svg .area-group .area-visited {
+	display: none;
+}
+
+/* When region is visited, flip them */
+.map-svg .area-group.region-visited .area-unvisited {
+	display: none;
+}
+.map-svg .area-group.region-visited .area-visited {
+	display: block;
 }
 

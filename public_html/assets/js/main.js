@@ -24,10 +24,10 @@ $(function () {
 	var $arrowKeys = $(".arrow-key");
 
 	// each map wrapper (assumed IDs: #central-map, #outdoor-map, #work-map)
-	var $centralMap = $("#central-map");
+	var $centralGroundMap = $("#centralGround-map");
 	var $outdoorMap = $("#outdoor-map");
 	var $workMap = $("#work-map");
-	var $mapScreens = $centralMap.add($outdoorMap).add($workMap);
+	var $mapScreens = $centralGroundMap.add($outdoorMap).add($workMap);
 
 	// player elements (for currently active map)
 	var $player = null;
@@ -37,7 +37,7 @@ $(function () {
 	const workMapScreens = {
 		locKitchenette: "theKitchenette",
 		locAltWork: "theAlternameWorkArea",
-		locMeetRoom: "theMeetingRooms",
+		locMeeting: "theMeetingRooms",
 		locBreakout: "breakoutArea",
 		locFocus: "theFocusRooms",
 		locHuddle: "huddle",
@@ -47,7 +47,8 @@ $(function () {
 
 	// scorecards lookup per map
 	var scoreCardsByMap = {
-		central: $centralScoreCards,
+		centralGround: $centralScoreCards,
+		centralFirst: $centralScoreCards,
 		outdoor: $outdoorScoreCards,
 		work: $workScoreCards
 	};
@@ -88,9 +89,17 @@ $(function () {
 
 		maps: {
 			active: null,
-			all: ["central", "outdoor", "work"],
+			all: ["centralGround", "centralFirst", "outdoor", "work"],
 			data: {
-				central: {
+				centralGround: {
+					currentNodeId: null,
+					visitedRegions: {},
+					visitedCount: 0,
+					visitedNodes: {},
+					visitedPlaces: {},
+					traversedEdges: {}
+				},
+				centralFirst: {
 					currentNodeId: null,
 					visitedRegions: {},
 					visitedCount: 0,
@@ -133,7 +142,8 @@ $(function () {
 	// per-map SVG graphs
 	// graphs[mapName] = { nodeId: { id, $el, x, y, neighbors, isPlace, placeName } }
 	var graphs = {
-		central: {},
+		centralGround: {},
+		centralFirst: {},
 		outdoor: {},
 		work: {}
 	};
@@ -218,7 +228,8 @@ $(function () {
 	// Map + scoreboard helpers
 	// ==================================================
 	function setScoreboardForMap(mapName) {
-		$centralScore.toggleClass("active", mapName === "central");
+		$centralScore.toggleClass("active", mapName === "centralGround");
+		$centralScore.toggleClass("active", mapName === "centralFirst");
 		$outdoorScore.toggleClass("active", mapName === "outdoor");
 		$workScore.toggleClass("active", mapName === "work");
 	}
@@ -264,12 +275,58 @@ $(function () {
 			mapState.visitedRegions[regionId] = true;
 			mapState.visitedCount++;
 
+			// 1) Scoreboard card by region
 			var $cards = scoreCardsByMap[mapName];
 			if ($cards && $cards.length) {
 				$cards
 					.filter('[data-region="' + regionId + '"]')
 					.addClass("active");
 			}
+
+			// 2) Area highlight in SVG (new bit)
+			var $mapRoot = $("#" + mapName + "-map").find(".map-svg");
+			$mapRoot
+				.find('.area-group[data-region="' + regionId + '"]')
+				.addClass("region-visited");
+		}
+	}
+
+	function triggerPlaceIfAdjacent(mapName, nodeId) {
+		var graph   = graphs[mapName];
+		var mapData = state.maps.data[mapName];
+
+		if (!graph || !mapData) return;
+
+		var node = graph[nodeId];
+		if (!node || node.isPlace) {
+			// If it's already a place node, normal flow will handle it
+			return;
+		}
+
+		// Look at all neighbors of this joint node
+		var triggered = false;
+		$.each(node.neighbors, function (dir, neighborId) {
+			var neighbor = graph[neighborId];
+			if (neighbor && neighbor.isPlace) {
+				// Mark that place as visited (adds visited-place, region, score, confetti)
+				markVisitedPlace(mapName, neighborId);
+
+				// Open its location screen if configured
+				var $placeEl   = neighbor.$el;
+				var screenSel  = $placeEl.data("screen-target");
+				if (screenSel) {
+					$(".location-screen").removeClass("active");
+					$(screenSel).addClass("active");
+				}
+
+				triggered = true;
+				return false; // break $.each
+			}
+		});
+
+		if (triggered) {
+			// Keep nearby labels in sync
+			updateNearbyPlaces(mapName);
 		}
 	}
 
@@ -312,6 +369,13 @@ $(function () {
 				var cx = parseFloat($node.attr("cx")) || parseFloat($node.data("x"));
 				var cy = parseFloat($node.attr("cy")) || parseFloat($node.data("y"));
 
+				// data-no-score="true" on staircase etc.
+				var noScore = false;
+				if (isPlace) {
+					var ds = $node.data("no-score");
+					noScore = ds === true || ds === "true";
+				}
+
 				graph[id] = {
 					id: id,
 					$el: $node,
@@ -319,6 +383,7 @@ $(function () {
 					y: cy,
 					neighbors: neighbors,
 					isPlace: isPlace,
+					noScore: noScore,
 					placeName: $node.data("place-name") || null
 				};
 			});
@@ -369,10 +434,18 @@ $(function () {
 		var nextNode = graph[nextNodeId];
 		if (!nextNode) return;
 
-		// Update state
+		// update state
 		mapData.currentNodeId = nextNodeId;
 		markVisitedNode(mapName, nextNodeId);
 		markTraversedEdge(mapName, currentNodeId, nextNodeId);
+
+		console.log("[moveToNode]", {
+			map: mapName,
+			from: currentNodeId,
+			to: nextNodeId,
+			dir: dir,
+			node: nextNode
+		});
 
 		// Move player if on this map
 		if (state.maps.active === mapName) {
@@ -467,7 +540,8 @@ $(function () {
 
 		var $cards = null;
 		if (mapName === "outdoor") $cards = $outdoorScoreCards;
-		if (mapName === "central") $cards = $centralScoreCards;
+		if (mapName === "centralGround") $cards = $centralScoreCards;
+		if (mapName === "centralFirst") $cards = $centralScoreCards;
 		if (mapName === "work")    $cards = $workScoreCards;
 
 		if (!$cards || !$cards.length) {
@@ -491,32 +565,48 @@ $(function () {
 		var mapData = state.maps.data[mapName];
 		if (!graph || !mapData) return;
 
+		var node = graph[nodeId];
+		if (!node || !node.isPlace) return;
+
+		var $el      = node.$el;
+		var noScore  = $el.data("no-score") === true || $el.data("no-score") === "true";
+		var screen   = $el.data("screen-target");
+
+		// 🔹 Transition-only place (like Staircase)
+		if (noScore) {
+			if (screen) {
+				$(".location-screen").removeClass("active");
+				$(screen).addClass("active");
+				refreshBackButtonVisibility();
+			}
+			// Do NOT:
+			// - store in visitedPlaces
+			// - markRegionVisited
+			// - updateScoreboard
+			// - checkMapCompletion / confetti
+			return;
+		}
+
+		// 🔹 Normal scoring place (like Ground Floor Cafeteria)
 		if (!mapData.visitedPlaces[nodeId]) {
 			mapData.visitedPlaces[nodeId] = true;
 
-			var node = graph[nodeId];
-			if (node && node.isPlace) {
-				node.$el.addClass("visited-place");
+			$el.addClass("visited-place");
 
-				var regionId = node.$el.data("region") || nodeId;
-				markRegionVisited(mapName, regionId);
+			var regionId = $el.data("region") || nodeId;
+			markRegionVisited(mapName, regionId);
 
-				console.log("[game] visited place node:", nodeId, "map:", mapName, "region:", regionId);
-
-				var screen = node.$el.data("screen-target");
-				if (screen) {
-					$(".location-screen").removeClass("active");
-					$(screen).addClass("active");
-				}
+			if (screen) {
+				$(".location-screen").removeClass("active");
+				$(screen).addClass("active");
+				refreshBackButtonVisibility();
 			}
 
-			// Update UI counts
 			updateScoreboard(mapName);
-
-			// 🔔 Check if this map is now 100% explored
 			checkMapCompletion(mapName);
 		}
 	}
+
 
 	// ==================================================
 	// Exit from location screen back to its map,
@@ -534,6 +624,8 @@ $(function () {
 
 		// Hide all location screens
 		$(".location-screen").removeClass("active");
+		refreshBackButtonVisibility();
+
 
 		if (!mapName) {
 			setActiveScreen("game");
@@ -606,8 +698,13 @@ $(function () {
 
 		// 1) List all PLACE nodes in this map (locA, locB, locMeeting, etc.)
 		var allPlaces = Object.keys(graph).filter(function (id) {
-			return graph[id].isPlace; // set in initGraphsFromSvg
+			var node = graph[id];
+			if (!node || !node.isPlace) return false;
+			var $el = node.$el;
+			var noScore = $el.data("no-score") === true || $el.data("no-score") === "true";
+			return !noScore; // only real scoring places
 		});
+
 
 		// 2) Get visited place IDs from your state (markVisitedPlace fills this)
 		var visitedPlacesObj = mapData.visitedPlaces || {};
@@ -672,6 +769,28 @@ $(function () {
 		});
 	}
 
+	function logCurrentNode() {
+	var mapName = state.maps.active;
+	if (!mapName) {
+		console.log("No active map");
+		return;
+	}
+
+	var mapData = state.maps.data[mapName];
+	if (!mapData || !mapData.currentNodeId) {
+		console.log("No current node for map:", mapName);
+		return;
+	}
+
+	var nodeId = mapData.currentNodeId;
+	var node = graphs[mapName][nodeId];
+
+	console.log("Current node:", {
+		map: mapName,
+		nodeId: nodeId,
+		node: node
+	});
+}
 	// ==================================================
 	// Character selection
 	// ==================================================
@@ -688,6 +807,9 @@ $(function () {
 		$scoreboard.addClass("active");
 
 		$locationCharacters.find(".character-" + state.activeCharacter).addClass("active");
+		if(clickedIndex === 1) {
+			$locationCharacters.addClass("char-2");
+		}
 	}
 
 	function deSelectCharacter() {
@@ -711,8 +833,20 @@ $(function () {
 	// ==================================================
 	// Back button
 	// ==================================================
+	function refreshBackButtonVisibility() {
+		// If any location popup is open → hide Back button
+		if ($(".location-screen.active").length > 0) {
+			$backButton.removeClass("active");
+			return;
+		}
+
+		// Otherwise rely on default screen logic
+		updateBackButtonLabel();
+	}
+
 	function handleBackButtonClick(evt) {
 		evt.preventDefault();
+		$(".location-screen").removeClass("active");
 
 		if (state.screens.active === "game") {
 			// GAME → RECEPTION
@@ -748,7 +882,7 @@ $(function () {
 
 	$mapLinks.on("click", function (evt) {
 		var $this = $(this);
-		var mapToShow = $this.data("mapname"); // "central" | "outdoor" | "work"
+		var mapToShow = $this.data("mapname"); // "centralGround" | "centralFirst" | "outdoor" | "work"
 		handleShowMap(evt, mapToShow);
 	});
 
