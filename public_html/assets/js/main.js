@@ -563,6 +563,60 @@ $(function () {
 			$cards.eq(i).addClass("active");
 		}
 	}
+
+		// ----------------------------------------------------------------------
+	// PORTAL HANDLER (staircases between maps)
+	// ----------------------------------------------------------------------
+	function handleMapPortal(fromMapName, nodeId) {
+		var graph = graphs[fromMapName];
+		if (!graph) return;
+
+		var node = graph[nodeId];
+		if (!node || !node.isPlace) return;
+
+		var $el           = node.$el;
+		var targetMapName = $el.data("target-map");
+		var targetNodeId  = $el.data("target-node");
+
+		if (!targetMapName || !state.maps.data[targetMapName]) {
+			console.warn("[portal] Invalid target-map on", nodeId, "->", targetMapName);
+			return;
+		}
+
+		var targetGraph   = graphs[targetMapName];
+		var targetMapData = state.maps.data[targetMapName];
+
+		// Prefer an explicit target node near the staircase
+		if (targetNodeId && targetGraph && targetGraph[targetNodeId]) {
+			targetMapData.currentNodeId = targetNodeId;
+			targetMapData.visitedNodes[targetNodeId] = true;
+		} else {
+			// Fallback: if currentNodeId is missing or invalid, use first node in that map
+			if (!targetMapData.currentNodeId || !targetGraph || !targetGraph[targetMapData.currentNodeId]) {
+				if (targetGraph) {
+					var ids = Object.keys(targetGraph);
+					if (ids.length) {
+						targetMapData.currentNodeId = ids[0];
+						targetMapData.visitedNodes[ids[0]] = true;
+					}
+				}
+			}
+		}
+
+		// Close any open location popups
+		$(".location-screen").removeClass("active");
+		if (typeof refreshBackButtonVisibility === "function") {
+			refreshBackButtonVisibility();
+		}
+
+		// Now switch map. This will:
+		// - set state.maps.active
+		// - set screen to "game"
+		// - position the player (via positionPlayerAt)
+		// - updateAvailableDirections()
+		setActiveMap(targetMapName);
+	}
+
 	// ==================================================
 	// Place (Location) handling
 	// ==================================================
@@ -574,57 +628,46 @@ $(function () {
 		var node = graph[nodeId];
 		if (!node || !node.isPlace) return;
 
-		var $el       = node.$el;
-		var noScore   = !!node.noScore;              // from initGraphsFromSvg
-		var screenSel = $el.data("screen-target");
-		var targetMap = $el.data("target-map");      // 🔴 portal map name (e.g. "centralFirst")
+		var $placeEl     = node.$el;
+		var targetMapName = $placeEl.data("target-map");
 
-		// 1) PORTAL behaviour (staircase etc.)
-		if (targetMap) {
-			// If you want a popup first, you can uncomment the next block:
-			/*
-			if (screenSel) {
-				$(".location-screen").removeClass("active");
-				$(screenSel).addClass("active");
-				refreshBackButtonVisibility();
-			}
-			*/
-
-			// jump directly to the target map
-			setActiveMap(targetMap);
+		// --------------------------------------------------
+		// PORTAL PLACES (staircases)
+		// --------------------------------------------------
+		if (targetMapName) {
+			// Staircases should act as portals ONLY, no score/confetti
+			handleMapPortal(mapName, nodeId);
 			return;
 		}
 
-		// 2) Normal places: open screen if any
-		if (screenSel) {
-			$(".location-screen").removeClass("active");
-			$(screenSel).addClass("active");
-			refreshBackButtonVisibility();
-		}
-
-		// 3) Places that should NOT affect score/confetti
-		if (noScore) {
-			return;
-		}
-
-		// 4) Normal scoring + completion logic
+		// --------------------------------------------------
+		// NORMAL PLACES
+		// --------------------------------------------------
 		if (!mapData.visitedPlaces[nodeId]) {
 			mapData.visitedPlaces[nodeId] = true;
-			$el.addClass("visited-place");
 
-			var regionId = $el.data("region") || nodeId;
+			// Visually mark place + region
+			$placeEl.addClass("visited-place");
+
+			var regionId = $placeEl.data("region") || nodeId;
 			markRegionVisited(mapName, regionId);
 
-			updateScoreboard(mapName);
+			// Open its content screen if configured
+			var screen = $placeEl.data("screen-target");
+			if (screen) {
+				$(".location-screen").removeClass("active");
+				$(screen).addClass("active");
+				refreshBackButtonVisibility();
+			}
 
-			// centralGround + centralFirst share completion
-			if (mapName === "centralGround" || mapName === "centralFirst") {
-				checkCentralCompletion();
-			} else {
+			// Only affect scoreboard & completion if NOT a "no-score" place
+			if (!node.noScore) {
+				updateScoreboard(mapName);
 				checkMapCompletion(mapName);
 			}
 		}
 	}
+
 
 
 	// ==================================================
@@ -808,19 +851,24 @@ $(function () {
 	}
 
 	function updateAvailableDirections() {
-		var activeMap = state.maps.active;
-		var mapData = state.maps.data[activeMap];
-		var graph = graphs[activeMap];
+		const activeMap = state.maps.active;
+		const mapData = state.maps.data[activeMap];
+		const graph = graphs[activeMap];
 
-		if (!activeMap || !graph || !mapData) {
+		if (!activeMap || !graph || !mapData || !mapData.currentNodeId) {
 			$arrowKeys.removeClass("available").addClass("disabled");
 			return;
 		}
 
-		var currentNode = graph[mapData.currentNodeId];
+		const currentNode = graph[mapData.currentNodeId];
+		if (!currentNode) {
+			// bad state: ID not in graph → disable keys instead of crashing
+			$arrowKeys.removeClass("available").addClass("disabled");
+			return;
+		}
 
-		["up", "right", "down", "left"].forEach(dir => {
-			var $btn = $(`.arrow-key[data-dir="${dir}"]`);
+		["up", "right", "down", "left"].forEach((dir) => {
+			const $btn = $(`.arrow-key[data-dir="${dir}"]`);
 			if (currentNode.neighbors[dir]) {
 				$btn.addClass("available").removeClass("disabled");
 			} else {
@@ -1012,4 +1060,38 @@ $(function () {
 		$("#state-loading-website").addClass("screen-out");
 		setActiveScreen("character");
 	}, 200);
+
+
+	function updateScreenWarning() {
+		var w = $(window).width();
+		var h = $(window).height();
+		var $overlay = $('#screen-warning-overlay');
+		var $text = $('.screen-warning-text');
+
+		// Case 1: width < 1220 AND height < 1220
+		if (w < 1220 && h < 1220) {
+			$text.text('Please view this website on a desktop or laptop for the best experience.');
+			$overlay.show();
+			$('body').addClass('overlay-active');
+		}
+		// Case 2: width < 1220 AND height >= 1220
+		else if (w < 1220 && h >= 1220) {
+			$text.text('For the best experience, please rotate your device to landscape.');
+			$overlay.show();
+			$('body').addClass('overlay-active');
+		}
+		// Otherwise, hide the overlay
+		else {
+			$overlay.hide();
+			$('body').removeClass('overlay-active');
+		}
+	}
+
+	// Run on load
+	updateScreenWarning();
+
+	// Run on resize and orientation change
+	$(window).on('resize orientationchange', function () {
+		updateScreenWarning();
+	});
 });

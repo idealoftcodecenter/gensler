@@ -282,6 +282,47 @@ button:hover .arrow .line,
 }
 
 
+/* Full-screen black overlay */
+#screen-warning-overlay {
+	position: fixed;
+	inset: 0;
+	background: #1F2A36;
+	display: none;
+	/* jQuery will show/hide this */
+	z-index: 9999;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Content centered inside overlay */
+.screen-warning-content {
+	text-align: center;
+	padding: 1.5rem;
+}
+
+/* Small logo above the message */
+.screen-warning-logo {
+	display: block;
+	margin: 0 auto 1.5rem auto;
+	max-width: 120px;
+	height: auto;
+}
+
+/* Message text */
+.screen-warning-text {
+	color: #fff;
+	font-size: 1.3rem;
+	line-height: 1.5;
+}
+
+/* Optional: dim page when overlay is visible */
+body.overlay-active {
+	overflow: hidden;
+}
+
+
 .speech-bubble {
 	position: absolute;
 }

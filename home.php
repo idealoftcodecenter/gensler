@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (empty($_SESSION['logged_in'])) {
+	header("Location: login.php");
+	exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -4115,11 +4123,11 @@
 										</g>
 									</g>
 									<!-- ===================================================
-									    FIRST FLOOR MAP GRAPH + LOCATIONS + PLAYER
+										FIRST FLOOR MAP GRAPH + LOCATIONS + PLAYER
 									=================================================== -->
 									
 									<!-- ===================================================
-									    LOCATION AREAS (MOVED BEFORE PATHS SO THEY STAY BEHIND EVERYTHING)
+										LOCATION AREAS (MOVED BEFORE PATHS SO THEY STAY BEHIND EVERYTHING)
 									=================================================== -->
 									<g class="location-areas">
 									
@@ -4156,18 +4164,18 @@
 									</g>
 									
 									<!-- ===================================================
-									    BACKGROUND PATH (visual only, dashed)
+										BACKGROUND PATH (visual only, dashed)
 									=================================================== -->
 									<g class="map-bg">
 										<path class="background-path" d="M164.5 276.427H188.5
-									         M359 276.427H271H188.5
-									         M359 276.427V340.927
-									         M359 276.427H375V60.9268
-									         M188.5 276.427V319.927" stroke="#FFDB52" stroke-width="3" stroke-dasharray="6 6" fill="none" />
+											 M359 276.427H271H188.5
+											 M359 276.427V340.927
+											 M359 276.427H375V60.9268
+											 M188.5 276.427V319.927" stroke="#FFDB52" stroke-width="3" stroke-dasharray="6 6" fill="none" />
 									</g>
 									
 									<!-- ===================================================
-									    INTERACTIVE PATHS (EDGES)
+										INTERACTIVE PATHS (EDGES)
 									=================================================== -->
 									<g class="paths-layer">
 									
@@ -4195,7 +4203,7 @@
 									</g>
 									
 									<!-- ===================================================
-									    GRAPH NODES (JOINTS)
+										GRAPH NODES (JOINTS)
 									=================================================== -->
 									<g class="nodes-layer">
 									
@@ -4214,7 +4222,7 @@
 									</g>
 									
 									<!-- ===================================================
-									    LOCATION MARKERS, LABELS, SPARKS (these stay ON TOP)
+										LOCATION MARKERS, LABELS, SPARKS (these stay ON TOP)
 									=================================================== -->
 									<g class="locations-layer">
 									
@@ -4294,6 +4302,7 @@
 										<!-- ===================== Staircase (FIRST → GROUND) ===================== -->
 										<g class="node place location-marker" data-node-id="locCentralFirstStaircase" data-region="centralFirstStaircase"
 											data-neighbors="up:f1Entry" data-x="188.5" data-y="331.427" data-no-score="true" data-target-map="centralGround"
+											data-target-node="r3"
 											>
 											<g class="marker" filter="url(#filter6_d_676_4688)">
 												<rect x="176" y="319.427" width="24" height="24" rx="12" fill="#FFF7CC" />
@@ -4307,7 +4316,7 @@
 									</g>
 									
 									<!-- ===================================================
-									    PLAYER GROUP (ALWAYS ON TOP)
+										PLAYER GROUP (ALWAYS ON TOP)
 									=================================================== -->
 									<g class="player-group">
 										<g class="location-character">
