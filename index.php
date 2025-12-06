@@ -2,7 +2,7 @@
 session_start();
 
 // Load credentials from private folder
-$creds = require $_SERVER['HOME'] . "/private_config/creds.php";
+$creds = require "../../private_config/creds.php";
 
 $USERNAME = $creds['username'];
 $PASSWORD_HASH = $creds['password_hash'];

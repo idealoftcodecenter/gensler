@@ -1084,7 +1084,7 @@ $(function () {
 	setTimeout(function () {
 		$("#state-loading-website").addClass("screen-out");
 		setActiveScreen("character");
-	}, 200);
+	}, 1200);
 
 
 	function updateScreenWarning() {

@@ -4302,7 +4302,6 @@ if (empty($_SESSION['logged_in'])) {
 										<!-- ===================== Staircase (FIRST → GROUND) ===================== -->
 										<g class="node place location-marker" data-node-id="locCentralFirstStaircase" data-region="centralFirstStaircase"
 											data-neighbors="up:f1Entry" data-x="188.5" data-y="331.427" data-no-score="true" data-target-map="centralGround"
-											data-target-node="r3"
 											>
 											<g class="marker" filter="url(#filter6_d_676_4688)">
 												<rect x="176" y="319.427" width="24" height="24" rx="12" fill="#FFF7CC" />
