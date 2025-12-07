@@ -2,7 +2,7 @@
 session_start();
 
 if (empty($_SESSION['logged_in'])) {
-	header("Location: login.php");
+	header("Location: index.php");
 	exit;
 }
 ?>
@@ -35,7 +35,6 @@ if (empty($_SESSION['logged_in'])) {
 	<link rel="apple-touch-icon" href="">
 
 	<!-- CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.mcustomscrollbar/3.1.5/jquery.mCustomScrollbar.min.css">
 
 	<link rel="stylesheet" href="assets/css/main.css">
 
