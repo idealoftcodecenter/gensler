@@ -1,0 +1,47 @@
+How to Run This Project:
+1. Download the ZIP file.
+2. Unzip it to your computer.
+3. Open the unzipped **Project Folder**.
+4. Double-click **index.html** to launch the project in your browser.
+
+--------------------------------------------
+
+Developer: Genler, Idealoft Studio
+
+This project is a static front-end game built using HTML, CSS, and JavaScript.
+It includes no backend, no API calls, and no form of data storage.
+
+Key Points:
+- 100% front-end static project.
+- All files (HTML, CSS, JS) are self-contained.
+- No data storage: no localStorage, cookies, sessions, or external servers.
+- No API calls to internal or external systems.
+- All assets (images, fonts, JS libraries) are stored locally.
+- No external URLs, CDN dependencies, or third-party scripts.
+- No tracking, analytics, or data collection.
+- Works fully offline.
+
+File Manifest (Contents of Project Folder):
+Project Folder
+  - index.html
+  - favicon.ico
+
+  /assets-agi
+    /css
+      - main.css
+    /fonts
+      - EmberModernDisplayStd-Bd.woff2
+      - EmberModernDisplayStd-Rg.woff2
+    /img
+      - bg/
+      - cont/
+      - icns/
+    /js
+      - libraries.js
+      - main.js
+      - main copy.js
+
+  - info.txt
+  - README.md
+
+This project is fully secure, offline-only, and safe to review or execute.
