@@ -21,7 +21,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"watch": "sass -w scss/main.scss public_html/assets/css/main.css --style=compressed --embed-source-map",
+		"watch": "sass -w scss/main.scss public_html/assets-agi/css/main.css --style=compressed --embed-source-map",
 		"serve": "http-server ./public_html -i",
 		"start": "concurrently --kill-others \"npm run watch\" \"npm run serve\""
 	},

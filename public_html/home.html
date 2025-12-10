@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (empty($_SESSION['logged_in'])) {
-	header("Location: index.php");
-	exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,11 +28,11 @@ if (empty($_SESSION['logged_in'])) {
 
 	<!-- CSS -->
 
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets-agi/css/main.css">
 
 	<!-- Preload Fonts (optional but recommended) -->
-	<link rel="preload" href="assets/fonts/EmberModernDisplayStd-Regular.woff2" as="font" type="font/woff" crossorigin>
-	<link rel="preload" href="assets/fonts/EmberModernDisplayStd-Bold.woff2" as="font" type="font/woff" crossorigin>
+	<link rel="preload" href="assets-agi/fonts/EmberModernDisplayStd-Regular.woff2" as="font" type="font/woff" crossorigin>
+	<link rel="preload" href="assets-agi/fonts/EmberModernDisplayStd-Bold.woff2" as="font" type="font/woff" crossorigin>
 
 	<!-- Other meta (optional) -->
 	<meta name="theme-color" content="">
@@ -50,7 +42,7 @@ if (empty($_SESSION['logged_in'])) {
 	<!-- Full-screen overlay -->
 	<div id="screen-warning-overlay">
 		<div class="screen-warning-content">
-			<img src="assets/img/cont/amazon-symbol.svg" alt="Logo" class="screen-warning-logo">
+			<img src="assets-agi/img/cont/amazon-symbol.svg" alt="Logo" class="screen-warning-logo">
 			<p class="screen-warning-text"></p>
 		</div>
 	</div>
@@ -185,13 +177,13 @@ if (empty($_SESSION['logged_in'])) {
 
 			<!-- =================================================== Map Loading Screens -->
 			<article class="pos-absolute left-0 top-0 z-50 w-full h-full state outdoor-loading flex items-center justify-center">
-				<img src="assets/img/icns/outdoor-big.webp" style="display: inline-block; width: 190px; height: 190px;" alt="" />
+				<img src="assets-agi/img/icns/outdoor-big.webp" style="display: inline-block; width: 190px; height: 190px;" alt="" />
 			</article>
 			<article class="pos-absolute left-0 top-0 z-50 w-full h-full state central-loading flex items-center justify-center">
-				<img src="assets/img/icns/central-big.webp" style="display: inline-block; width: 190px; height: 190px;" alt="" />
+				<img src="assets-agi/img/icns/central-big.webp" style="display: inline-block; width: 190px; height: 190px;" alt="" />
 			</article>
 			<article class="pos-absolute left-0 top-0 z-50 w-full h-full state work-loading flex items-center justify-center">
-				<img src="assets/img/icns/work-big.webp" style="display: inline-block; width: 190px; height: 190px;" alt="" />
+				<img src="assets-agi/img/icns/work-big.webp" style="display: inline-block; width: 190px; height: 190px;" alt="" />
 			</article>
 			
 
@@ -988,11 +980,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -1007,7 +999,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Central Amenities</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/central-big.webp" alt="" />
+										<img src="assets-agi/img/icns/central-big.webp" alt="" />
 									</span>
 								</a>
 								<a href="#" class="map-links flex items-center justify-around gap-3 map-link" data-mapname="outdoor">
@@ -1017,7 +1009,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Outdoor Amenities</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/outdoor-big.webp" alt="" />
+										<img src="assets-agi/img/icns/outdoor-big.webp" alt="" />
 									</span>
 								</a>
 								<a href="#" class="map-links work-floor-link flex items-center justify-around gap-3 map-link" data-mapname="work">
@@ -1027,7 +1019,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Work Floor</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/work-big.webp" alt="" />
+										<img src="assets-agi/img/icns/work-big.webp" alt="" />
 									</span>
 								</a>
 								
@@ -1055,20 +1047,20 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="no-key flex items-center justify-center">
 									</div>
 									<div class="key arrow-key key-up flex items-center justify-center" data-dir="up">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="no-key flex items-center justify-center">
 									</div>
 								</div>
 								<div class="flex items-center justify-around">
 									<div class="key arrow-key key-left flex items-center justify-center" data-dir="left">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-down flex items-center justify-center" data-dir="down">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-right flex items-center justify-center" data-dir="right">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 								</div>
 							</div>
@@ -2287,23 +2279,23 @@ if (empty($_SESSION['logged_in'])) {
 									<!-- =================================================== PLAYER GROUP (controlled by JS) -->
 									<g class="player-group" transform="translate(369.5,363.137)">
 										<g class="location-character">
-											<image href="assets/img/cont/characters/0/character.png" width="36" height="36" x="-16" y="-18"
+											<image href="assets-agi/img/cont/characters/0/character.png" width="36" height="36" x="-16" y="-18"
 												class="location-character-img character-0 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/1/character.png" width="36" height="36" x="-16" y="-18"
+											<image href="assets-agi/img/cont/characters/1/character.png" width="36" height="36" x="-16" y="-18"
 												class="location-character-img character-1 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/2/character.png" width="36" height="36" x="-16" y="-18"
+											<image href="assets-agi/img/cont/characters/2/character.png" width="36" height="36" x="-16" y="-18"
 												class="location-character-img character-2 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/3/character.png" width="36" height="36" x="-16" y="-18"
+											<image href="assets-agi/img/cont/characters/3/character.png" width="36" height="36" x="-16" y="-18"
 												class="location-character-img character-3 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/4/character.png" width="36" height="36" x="-16" y="-18"
+											<image href="assets-agi/img/cont/characters/4/character.png" width="36" height="36" x="-16" y="-18"
 												class="location-character-img character-4 player-character" />
 										</g>
 									</g>
@@ -2623,11 +2615,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
-									<img src="assets/img/cont/characters/2/2.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3 flip" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/2/2.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4 flip" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -2642,7 +2634,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -2665,11 +2657,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -2684,7 +2676,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -2707,11 +2699,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
-									<img src="assets/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -2726,7 +2718,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -2749,11 +2741,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -2768,7 +2760,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -2791,11 +2783,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
-									<img src="assets/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -2810,7 +2802,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -2833,11 +2825,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -2852,7 +2844,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -2880,20 +2872,20 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="no-key flex items-center justify-center">
 									</div>
 									<div class="key arrow-key key-up flex items-center justify-center" data-dir="up">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="no-key flex items-center justify-center">
 									</div>
 								</div>
 								<div class="flex items-center justify-around">
 									<div class="key arrow-key key-left flex items-center justify-center" data-dir="left">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-down flex items-center justify-center" data-dir="down">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-right flex items-center justify-center" data-dir="right">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 								</div>
 							</div>
@@ -3690,23 +3682,23 @@ if (empty($_SESSION['logged_in'])) {
 												<!-- <ellipse cx="282.949" cy="327.709" rx="12.5" ry="12.2598" fill="#D5F0D8" /> -->
 										
 												<g class="location-character">
-													<image href="assets/img/cont/characters/0/character.png" width="36" height="36" x="-16" y="-18"
+													<image href="assets-agi/img/cont/characters/0/character.png" width="36" height="36" x="-16" y="-18"
 														class="location-character-img character-0 player-character" />
 												</g>
 												<g class="location-character">
-													<image href="assets/img/cont/characters/1/character.png" width="36" height="36" x="-16" y="-18"
+													<image href="assets-agi/img/cont/characters/1/character.png" width="36" height="36" x="-16" y="-18"
 														class="location-character-img character-1 player-character" />
 												</g>
 												<g class="location-character">
-													<image href="assets/img/cont/characters/2/character.png" width="36" height="36" x="-16" y="-18"
+													<image href="assets-agi/img/cont/characters/2/character.png" width="36" height="36" x="-16" y="-18"
 														class="location-character-img character-2 player-character" />
 												</g>
 												<g class="location-character">
-													<image href="assets/img/cont/characters/3/character.png" width="36" height="36" x="-16" y="-18"
+													<image href="assets-agi/img/cont/characters/3/character.png" width="36" height="36" x="-16" y="-18"
 														class="location-character-img character-3 player-character" />
 												</g>
 												<g class="location-character">
-													<image href="assets/img/cont/characters/4/character.png" width="36" height="36" x="-16" y="-18"
+													<image href="assets-agi/img/cont/characters/4/character.png" width="36" height="36" x="-16" y="-18"
 														class="location-character-img character-4 player-character" />
 												</g>
 											</g>
@@ -3807,20 +3799,20 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="no-key flex items-center justify-center">
 									</div>
 									<div class="key arrow-key key-up flex items-center justify-center" data-dir="up">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="no-key flex items-center justify-center">
 									</div>
 								</div>
 								<div class="flex items-center justify-around">
 									<div class="key arrow-key key-left flex items-center justify-center" data-dir="left">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-down flex items-center justify-center" data-dir="down">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-right flex items-center justify-center"  data-dir="right">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 								</div>
 							</div>
@@ -4318,23 +4310,23 @@ if (empty($_SESSION['logged_in'])) {
 									=================================================== -->
 									<g class="player-group">
 										<g class="location-character">
-											<image href="assets/img/cont/characters/0/character.png" width="36" height="36" x="-12" y="-28"
+											<image href="assets-agi/img/cont/characters/0/character.png" width="36" height="36" x="-12" y="-28"
 												class="location-character-img character-0 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/1/character.png" width="36" height="36" x="-12" y="-28"
+											<image href="assets-agi/img/cont/characters/1/character.png" width="36" height="36" x="-12" y="-28"
 												class="location-character-img character-1 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/2/character.png" width="36" height="36" x="-12" y="-28"
+											<image href="assets-agi/img/cont/characters/2/character.png" width="36" height="36" x="-12" y="-28"
 												class="location-character-img character-2 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/3/character.png" width="36" height="36" x="-12" y="-28"
+											<image href="assets-agi/img/cont/characters/3/character.png" width="36" height="36" x="-12" y="-28"
 												class="location-character-img character-3 player-character" />
 										</g>
 										<g class="location-character">
-											<image href="assets/img/cont/characters/4/character.png" width="36" height="36" x="-12" y="-28"
+											<image href="assets-agi/img/cont/characters/4/character.png" width="36" height="36" x="-12" y="-28"
 												class="location-character-img character-4 player-character" />
 										</g>
 									</g>
@@ -4551,11 +4543,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -4570,7 +4562,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 								<a href="#first-floor-amenities" class="exit-to-map first-floor-amenities flex items-center justify-around gap-3">
@@ -4580,7 +4572,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">The First Floor Cafeteria</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/staircase.svg" alt="" />
+										<img src="assets-agi/img/icns/staircase.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -4622,11 +4614,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
-									<img src="assets/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -4641,7 +4633,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -4664,11 +4656,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -4683,7 +4675,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -4709,11 +4701,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/2.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/3.webp" class="location-character-img character-4 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/2.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/3.webp" class="location-character-img character-4 flip" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -4728,7 +4720,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -4754,20 +4746,20 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="no-key flex items-center justify-center">
 									</div>
 									<div class="key arrow-key key-up flex items-center justify-center" data-dir="up">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="no-key flex items-center justify-center">
 									</div>
 								</div>
 								<div class="flex items-center justify-around">
 									<div class="key arrow-key key-left flex items-center justify-center" data-dir="left">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-down flex items-center justify-center" data-dir="down">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 									<div class="key arrow-key key-right flex items-center justify-center" data-dir="right">
-										<img src="assets/img/icns/key-arrow-down.svg" alt="" />
+										<img src="assets-agi/img/icns/key-arrow-down.svg" alt="" />
 									</div>
 								</div>
 							</div>
@@ -5395,7 +5387,7 @@ if (empty($_SESSION['logged_in'])) {
 											<!-- Player character sprite -->
 											<g class="location-character">
 												<image
-													href="assets/img/cont/characters/0/character.png"
+													href="assets-agi/img/cont/characters/0/character.png"
 													width="36"
 													height="36"
 													x="-16"
@@ -5405,7 +5397,7 @@ if (empty($_SESSION['logged_in'])) {
 											</g>
 											<g class="location-character">
 												<image
-													href="assets/img/cont/characters/1/character.png"
+													href="assets-agi/img/cont/characters/1/character.png"
 													width="36"
 													height="36"
 													x="-16"
@@ -5415,7 +5407,7 @@ if (empty($_SESSION['logged_in'])) {
 											</g>
 											<g class="location-character">
 												<image
-													href="assets/img/cont/characters/2/character.png"
+													href="assets-agi/img/cont/characters/2/character.png"
 													width="36"
 													height="36"
 													x="-16"
@@ -5425,7 +5417,7 @@ if (empty($_SESSION['logged_in'])) {
 											</g>
 											<g class="location-character">
 												<image
-													href="assets/img/cont/characters/3/character.png"
+													href="assets-agi/img/cont/characters/3/character.png"
 													width="36"
 													height="36"
 													x="-16"
@@ -5435,7 +5427,7 @@ if (empty($_SESSION['logged_in'])) {
 											</g>
 											<g class="location-character">
 												<image
-													href="assets/img/cont/characters/4/character.png"
+													href="assets-agi/img/cont/characters/4/character.png"
 													width="36"
 													height="36"
 													x="-16"
@@ -6162,11 +6154,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -6181,7 +6173,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -6207,11 +6199,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
-									<img src="assets/img/cont/characters/1/2.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0" alt="" />
+									<img src="assets-agi/img/cont/characters/1/2.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/3.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -6226,7 +6218,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -6252,11 +6244,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/1.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -6271,7 +6263,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -6292,11 +6284,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/3.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -6311,7 +6303,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -6336,11 +6328,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/1.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -6355,7 +6347,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -6380,11 +6372,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -6399,7 +6391,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -6420,11 +6412,11 @@ if (empty($_SESSION['logged_in'])) {
 						<section class="h-full right">
 							<div class="w-full h-full border-white border-2 border-solid bg pos-relative rounded-small">
 								<div class="location-character pos-absolute">
-									<img src="assets/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
-									<img src="assets/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
-									<img src="assets/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
-									<img src="assets/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
-									<img src="assets/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
+									<img src="assets-agi/img/cont/characters/0/1.webp" class="location-character-img character-0 flip" alt="" />
+									<img src="assets-agi/img/cont/characters/1/1.webp" class="location-character-img character-1" alt="" />
+									<img src="assets-agi/img/cont/characters/2/4.webp" class="location-character-img character-2" alt="" />
+									<img src="assets-agi/img/cont/characters/3/2.webp" class="location-character-img character-3" alt="" />
+									<img src="assets-agi/img/cont/characters/4/1.webp" class="location-character-img character-4" alt="" />
 									<div class="speech-bubble">
 										<div class="line"></div>
 										<div class="text">
@@ -6439,7 +6431,7 @@ if (empty($_SESSION['logged_in'])) {
 									<div class="pipe"></div>
 									<span class="text">Exit to Map</span>
 									<span class="icon flex items-center justify-center">
-										<img src="assets/img/icns/exit-map.svg" alt="" />
+										<img src="assets-agi/img/icns/exit-map.svg" alt="" />
 									</span>
 								</a>
 							</div>
@@ -6449,7 +6441,7 @@ if (empty($_SESSION['logged_in'])) {
 				</section>
 				<footer class="flex items-center" id="game-footer">
 					<aside>
-						<img src="assets/img/cont/amazon-symbol.svg" alt="" />
+						<img src="assets-agi/img/cont/amazon-symbol.svg" alt="" />
 					</aside>
 					
 					<section class="right flex items-center justify-end">
@@ -6457,7 +6449,7 @@ if (empty($_SESSION['logged_in'])) {
 							<div class="scoreboard flex items-center gap-3" id="scoreboard">
 								<div class="central flex items-center gap-2">
 									<div class="icon">
-										<img src="assets/img/icns/central.webp" alt="" style="width: 54px; height: 54px;" />
+										<img src="assets-agi/img/icns/central.webp" alt="" style="width: 54px; height: 54px;" />
 									</div>
 									<div class="score flex items-center gap-2" id="central-score">
 										<svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="score-box central-score">
@@ -6480,7 +6472,7 @@ if (empty($_SESSION['logged_in'])) {
 								</div>
 								<div class="outdoor flex items-center gap-2">
 									<div class="icon">
-										<img src="assets/img/icns/outdoor.webp" alt="" style="width: 54px; height: 54px;" />
+										<img src="assets-agi/img/icns/outdoor.webp" alt="" style="width: 54px; height: 54px;" />
 									</div>
 									<div class="score flex items-center gap-2" id="outdoor-score">
 										<svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="score-box outdoor-score" data-region="joggingTrack">
@@ -6511,7 +6503,7 @@ if (empty($_SESSION['logged_in'])) {
 								</div>
 								<div class="work flex items-center gap-2">
 									<div class="icon">
-										<img src="assets/img/icns/work.webp" alt="" style="width: 54px; height: 54px;" />
+										<img src="assets-agi/img/icns/work.webp" alt="" style="width: 54px; height: 54px;" />
 									</div>
 									<div class="score flex items-center gap-2" id="work-score">
 										<svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="score-box work-score">
@@ -6553,9 +6545,9 @@ if (empty($_SESSION['logged_in'])) {
 	</div>
 
 	<!-- Libraries - jQuery 3.7.1, Overlay Scrollbars -->
-	<script src="assets/js/libraries.js"></script>
+	<script src="assets-agi/js/libraries.js"></script>
 
 	<!-- Main JS file with all the setup, settings and game logic -->
-	<script src="assets/js/main.js"></script>
+	<script src="assets-agi/js/main.js"></script>
 </body>
 </html>
