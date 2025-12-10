@@ -52,3 +52,24 @@ Project Folder
 │
 ├── info.txt
 └── README.md
+
+
+
+---
+
+## 🔐 Security & Privacy
+
+- No user data collected or stored.
+- No tracking scripts or analytics.
+- No internet communication of any kind.
+
+## 🚫 Third-Party Usage
+
+- No external APIs.
+- No CDN-hosted libraries.
+- No remote dependencies.
+
+## ✔ Additional Notes
+
+- Runs in any modern browser.
+- Works offline without setup.

@@ -5,7 +5,6 @@ How to Run This Project:
 4. Double-click **index.html** to launch the project in your browser.
 
 --------------------------------------------
-
 Developer: Genler, Idealoft Studio
 
 This project is a static front-end game built using HTML, CSS, and JavaScript.
